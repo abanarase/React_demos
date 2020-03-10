@@ -1,0 +1,87 @@
+
+   [
+    {
+        "id":1,
+        "car_model": "Kia selton" ,
+        "registration_no": "MH 12 AB 1234",
+        "type" :"SUV",
+        "transmission" :"Manual",
+         "Fuel" : "Diesel",
+         "Displacement_CC":"1497",
+         "Mileage_in_km":"25",
+         "Color" : "Red",    
+         "Rent_per_km":"20",
+         "Booking_status" : "Available"
+
+    },
+    {
+        "id":2,
+        "car_model": "Maruti Suzuki Dzire" ,
+        "registration_no": "MH 12 AB 3334",
+        "type" :"Sedan",
+        "transmission" :"Automatic",
+         "Fuel" : "Petrol",
+         "Displacement_CC":"1497",
+         "Mileage_in_km":"25",
+         "Color" : "White",    
+         "Rent_per_km": "10",
+         "Booking_status" : "Available"
+
+    },
+    {
+        "id":3,
+        "car_model": "Toyota Yaris" ,
+        "registration_no": "MH 12 AB 7778",
+        "type" :"Sedan",
+        "transmission" :"Manual",
+         "Fuel" : "Diesel",
+         "Displacement_CC":"1497",
+         "Mileage_in_km":"20",
+         "Color" : "Black",    
+         "Rent_per_km": "20",
+         "Booking_status" : "Available"
+
+    },
+    {
+        "id":4,
+        "car_model": "Hyundai Elite i20." ,
+        "registration_no": "MH 12 AB 1112",
+        "type" :"Hatchback",
+        "transmission" :"Automatic",
+         "Fuel" : "Petrol",
+         "Displacement_CC":"1497",
+         "Mileage_in_km" : "15",
+         "Color" : "Black",    
+         "Rent_per_km": "15",         
+         "Booking_status" : "Available"
+
+    },
+    {
+        "id":5,
+        "car_model": "Maruti Suzuki Vitara Brezza" ,
+        "registration_no": "MH 12 AB 2345",
+        "type" :"SUV",
+        "transmission" :"Manual",
+         "Fuel" : "Diesel",
+         "Displacement_CC":"1497",
+         "Mileage_in_km" : "20",
+         "Color" : "Red",    
+         "Rent_per_km": "20",         
+         "Booking_status" : "Available"
+
+    },
+    {
+        "id":6,
+        "car_model": "Renault Kiger HBC" ,
+        "registration_no": "MH 12 AB 1987",
+        "type" :"MPV",
+        "transmission" :"Automatic",
+         "Fuel" : "Petrol",
+         "Displacement_CC":"1497",
+         "Mileage_in_km" : "20",
+         "Color" : "Black",    
+         "Rent_per_km": "30",         
+         "Booking_status" : "Available"
+
+    }
+]

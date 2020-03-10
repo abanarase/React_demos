@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#menu-outer {
+	height: 30px;
+
+}
+
+.Erra{
+  padding: 10px;
+  min-width:20%;
+  font-size: 15px;
+  color:#fff;
+  border: 0px;
+  border-radius: 5px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 5px;
+  background-color: #8c0505;
+}
+.Erra2{
+  padding: 10px;
+  min-width:10%;
+  font-size: 15px;
+  color:#8c0505;
+  border: 0px;  
+  border: 2px solid #8c0505;;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-left: 5px;
+  background-color:rgb(255, 255, 254);
+  
+}

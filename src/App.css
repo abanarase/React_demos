@@ -1,6 +1,11 @@
 .App {
   text-align: center;
 }
+.firstdiv {
+  text-align: center; 
+  display: inline;
+
+}
 
 .App-logo {
   height: 40vmin;

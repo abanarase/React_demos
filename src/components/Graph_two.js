@@ -2,11 +2,11 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import './Graph.css';
 
-class Graph extends React.Component {
+class Graph_two extends React.Component {
   
   options = {
     chart: {
-      type: "column"
+      type: "line"
     },
     yAxis : {
       title: {
@@ -19,39 +19,38 @@ class Graph extends React.Component {
    },
   
     title: {
-      text: "Car Model VS Demand"
+      text: "Car type VS Demand"
     },
     series :  [{
-      name: 'Suzuki',
-      data: [5, 7, 9, 8]
+      name: 'Hatchback',
+      data: [5, 7, 9 ]
    }, 
    {
-      name: 'Mahindra',
-      data: [14, 10, 15,7 ]
+      name: 'Sedan',
+      data: [14, 10, 15 ]
    }, 
    {
-      name: 'Honda',
+      name: 'MPV',
       data: [25, 10, 76 ]
    }, 
    {
-      name: 'Toyota',
+      name: 'SUV',
       data: [55, 34, 54 ]
    }
 ]
-
   };
 
   componentDidMount() {
-    this.instance = Highcharts.chart("carmod", this.options);
+    this.instance = Highcharts.chart("cartype", this.options);
   }
 
   render() {
     return (
       <div>
-        <div id="carmod" className="barchart"/>
+        <div id="cartype" className="barchart"/>
       </div>
     );
   }
 }
 
-export default Graph;
+export default Graph_two;
