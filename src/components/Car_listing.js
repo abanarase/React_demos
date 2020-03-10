@@ -28,7 +28,7 @@ class Car_listing extends React.Component {
                 <td>{data.Color}</td>
                 <td>{data.Rent_per_km}</td>              
                 <td>{data.Booking_status}</td>          
-               <td><input className="Erra" type="button" value="Book" onClick={this.props.action.childHandler}/></td>
+               <td><input className="Erra" type="button" value="Book" id={data.id}  onClick={e => this.props.action.childHandler(e, "id")}/></td>
  
              </tr>
           )

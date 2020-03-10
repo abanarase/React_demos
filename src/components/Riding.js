@@ -10,9 +10,10 @@ class Riding extends React.Component {
        this.state = {mode:'view'};    
      }
 
-     childHandler() {       
-        this.setState({mode:"item"});
-        console.log("item is");
+     childHandler(item) {       
+        this.setState({mode:"item"});  
+        console.log(item.target.id)
+        console.log("item is",item);
      }
    
      render() {
