@@ -6,13 +6,6 @@ import {Link} from 'react-router-dom';
 
 
 class Car_listing extends React.Component {
-   // constructor(props) {
-   //    super(props);
-   //    // this.state = {
-   //    // mode:'view'
-   //    // };
-   //    // console.log("ssaas",this.state);
-   //  }
   
     render() {
       const  newdata= data.map((data) =>{
@@ -36,8 +29,7 @@ class Car_listing extends React.Component {
       
         return (
         
-           <div>
-              <h3>{this.props.action.mode}</h3>
+           <div>              
               <h1 id='title'>Car List</h1>
               <table id='Cars'>
                  <tbody>

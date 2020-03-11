@@ -7,11 +7,11 @@ import Booking_form from './Booking_form';
 class Riding extends React.Component {
     constructor(props) {
        super(props);       
-       this.state = {mode:'view'};    
+       this.state = {mode:'view',car:""};    
      }
 
      childHandler(item) {       
-        this.setState({mode:"item"});  
+        this.setState({mode:"hide",car:item.target.id});  
         console.log(item.target.id)
         console.log("item is",item);
      }
@@ -23,7 +23,7 @@ class Riding extends React.Component {
       );
     } else {
        return (
-            <Booking_form />
+            <Booking_form defval={this.state.car}/>
         )
     }
     }
