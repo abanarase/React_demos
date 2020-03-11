@@ -3,6 +3,9 @@ import './Booking_form.css';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import data from  '../Data/Carlist.json';
+import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
 
 const Countries = [
     { label: "India", value: 2 },
@@ -18,7 +21,9 @@ class Booking_form extends React.Component {
         super(props);
         this.state = {
             cars:data ,
-            value: ""           
+            value: "",
+            startDate: new Date()  ,
+            endDate : new Date         
           };
           this.handleChange = this.handleChange.bind(this);
           this.handleSubmit = this.handleSubmit.bind(this);  
@@ -26,7 +31,16 @@ class Booking_form extends React.Component {
     handleChange(event) {
         this.setState({value: event.target.value});
       }
-    
+      handleChangeSDate = date => {
+        this.setState({
+          startDate: date
+        });
+      };
+      handleChangeEDate = date => {
+        this.setState({
+            endDate: date
+        });
+      };
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.value);
         event.preventDefault();
@@ -92,11 +106,11 @@ render(){
          <div className="row">
             <div className="offset-md-4 col-md-2">
                 <label htmlFor="fromdate">From Date</label>
-                    <input type="text"  className="form-control"  id="fromdate" />                    
+                <DatePicker  selected={this.state.startDate} onChange={this.handleChangeSDate}/>                   
             </div>
             <div className="offset-md-1 col-md-2">
             <label htmlFor="todate">To Date</label>
-                    <input type="text"  className="form-control"  id="todate" />
+            <DatePicker  selected={this.state.endDate} onChange={this.handleChangeEDate}/>  
             </div>
          </div>
          <div className="row">
