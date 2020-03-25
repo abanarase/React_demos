@@ -4,12 +4,8 @@ import './Car_listing.js';
 
 class Table extends React.Component {
 	  constructor(props) {
-
-       super(props);      
-        let selectedValue=this.props.thead;   
-      	let bodya=this.props.tbody;  
-      	console.log("header is",selectedValue);
-      		console.log("bodya is",JSON.stringify(bodya));
+       super(props);
+      	let body_data=this.props.tbody;       	
      }
 
  generateHeader(){
@@ -20,8 +16,7 @@ class Table extends React.Component {
      }
      return res;
    }
-  generatebody(){
-  	
+  generatebody(){  	
  	let columnbody = this.props.tbody;  
  	console.log("columnbody",columnbody);
  	 let reo=[];
