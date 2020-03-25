@@ -27,12 +27,35 @@ class Booking_form extends React.Component {
       trent:"",
       carmodel:"",
       startDate: new Date(),
-      endDate : new Date()        
+      endDate : new Date(),
+      fields: {},
+      errors: {}        
       };
 this.handleChange = this.handleChange.bind(this);
 this.cal_fare = this.cal_fare.bind(this);
 this.handleSubmit = this.handleSubmit.bind(this);  
 }
+handleValidation(){
+        let fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
+       console.log("fiels",fields);
+        //Name
+        if(!fields["name"]){
+           formIsValid = false;
+           errors["name"] = "Cannot be empty";
+        }
+
+        if(typeof fields["name"] !== "undefined"){
+           if(!fields["name"].match(/^[a-zA-Z]+$/)){
+              formIsValid = false;
+              errors["name"] = "Only letters";
+           }        
+        }  
+
+       this.setState({errors: errors});
+       return formIsValid;
+   }
 
 handleselChange = selectedOption => {
 this.setState({ selectedOption });
@@ -60,8 +83,12 @@ return function (e) {
 var state = {};
 state[key] = e.target.value;
 this.setState(state);
+let fields = this.state.fields;
+ fields[key] = e.target.value;  
+this.setState({fields});        
 }.bind(this);
 }
+
 
 cal_fare() {
 let dates1=this.state.startDate;
@@ -100,7 +127,10 @@ else{
 }
 
 handleSubmit(event) {
-  var data = [
+   event.preventDefault();
+        if(this.handleValidation()){
+           alert("Form submitted");
+           var data = [
   this.state.name,
   this.state.carmodel,         
   this.state.amt,
@@ -109,6 +139,10 @@ handleSubmit(event) {
 this.setState({showtab:"view"});
 this.setState({newdata:data});
 console.log("data is",JSON.stringify(data));
+}else{
+   alert("Form has errors.")
+  }
+  
 }
 
 render(){  
@@ -131,8 +165,10 @@ return(
             <div className="row">
                <div className="col-md-5 offset-md-4">
                   <label htmlFor="name">Name</label>
-                  <input type="text" value={this.state.name} onChange={this.handleChange('name')} className="form-control" />
-               </div>
+                  <input ref="name" type="text" size="30" placeholder="Name" onChange={this.handleChange("name")} className="form-control" 
+                  value={this.state.fields["name"]}/>
+                           <span style={{color: "red"}}>{this.state.errors["name"]}</span>
+                   </div>
             </div>
             <div className="row">
                <div className="col-md-5 offset-md-4">
