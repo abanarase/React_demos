@@ -1,7 +1,6 @@
 import React from 'react';
 import './Car_listing.css';
 import data from  '../Data/Carlist.json';
-import {Link} from 'react-router-dom';
 
 
 

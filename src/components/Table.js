@@ -3,10 +3,7 @@ import './Car_listing.css';
 import './Car_listing.js';
 
 class Table extends React.Component {
-	  constructor(props) {
-       super(props);
-      	let body_data=this.props.tbody;       	
-     }
+	 
 
  generateHeader(){
  	let columnHeader = this.props.thead;  

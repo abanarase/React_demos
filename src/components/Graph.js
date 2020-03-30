@@ -23,11 +23,11 @@ class Graph extends React.Component {
     },
     series :  [{
       name: 'Suzuki',
-      data: [5, 7, 9, 8]
+      data: [5, 7, 9, 8,10,12,23]
    }, 
    {
       name: 'Mahindra',
-      data: [14, 10, 15,7 ]
+      data: [14, 10, 15,7,2,34,12,22,54,6,8,4]
    }, 
    {
       name: 'Honda',

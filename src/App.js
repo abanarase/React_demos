@@ -1,30 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Graph_two from './components/Graph_two';
 import Graph_three from './components/Graph_three';
 import Graph_four from './components/Graph_four';
 import Graph from './components/Graph';
-import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
+import {Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
  function App() {
-  return (
-    <div className="App">   
-     <Link to="/Rides"><input className="Erra" type="button" value="Book ride"/></Link>  
-     {/* <Link to="/Cars"><input className="Erra" type="button" value="Book ride car"/></Link>   */}
-     <div>   
-    <div className ="firstdiv"> 
-    <Graph />
-     <Graph_two />
-    </div> 
-    <div className ="firstdiv">
-    <Graph_three />
-      <Graph_four />
-    </div> 
-    </div>
-      
-      </div>
-      
+  return (  
+  <div>
+  <div className="flex-container">
+     <div style={{flexGrow: '1'}}><Link to="/Rides"><Button variant="contained" color="primary">Book ride</Button></Link></div>
+  </div> 
+    
+  <div className="flex-container">
+  <div style={{flexGrow: '1'}}><Graph/></div>
+  <div style={{flexGrow: '1'}}><Graph_two/></div>
+</div>
+<div className="flex-container">
+  <div style={{flexGrow: '1'}}><Graph_three/></div>
+  <div style={{flexGrow: '1'}}><Graph_four/></div>
+</div>
+</div>
+     
   );
 }
 

@@ -23,19 +23,19 @@ class Graph_two extends React.Component {
     },
     series :  [{
       name: 'Hatchback',
-      data: [5, 7, 9 ]
+      data: [5, 7, 9,12]
    }, 
    {
       name: 'Sedan',
-      data: [14, 10, 15 ]
+      data: [14, 10, 15,8,55, 34, 54,78,89,7,3,2]
    }, 
    {
       name: 'MPV',
-      data: [25, 10, 76 ]
+      data: [25, 10, 76,9]
    }, 
    {
       name: 'SUV',
-      data: [55, 34, 54 ]
+      data: [55, 34, 54,78,89,6,3,4,9,7,6,5]
    }
 ]
   };
