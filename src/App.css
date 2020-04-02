@@ -17,6 +17,18 @@
   justify-content: space-between;
   background-color: #f1f1f1;
 }
+.flex-container_one{
+    display: flex;
+  justify-content: space-between;
+background-color: #f1f1f1;
+}
+.flex-container_one > div {
+  margin: 10px;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  
+  }
 
 .flex-container > div {
   margin: 10px;

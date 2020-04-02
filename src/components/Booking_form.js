@@ -207,7 +207,7 @@ return(
                </div>
                <div className="offset-md-1 col-md-2">
                   <label htmlFor="todate">To Date</label>
-                  <DatePicker  selected={this.state.endDate} onChange={this.handleChangeEDate.bind()}/>
+                  <DatePicker selected={this.state.endDate} onChange={this.handleChangeEDate.bind()}/>
                </div>
             </div>
             <div className="row">

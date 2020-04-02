@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Filter from './components/FilterComponent'
 import * as serviceWorker from './serviceWorker';
 import Rides from './components/Riding';
 import Cars from './components/Car_listing';
