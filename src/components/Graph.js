@@ -72,6 +72,7 @@ constructor(props) {
   }
 
  handleChange = selectedOption => {
+  this.setState({filterOption:''});
     this.setState({ selectedOption });    
    let year = selectedOption.value;
    let Dataitem = cardata.filter((item) => {
@@ -79,7 +80,9 @@ constructor(props) {
   });
     let temp = Dataitem[0].item;
     let models =[]
-  
+    let cat = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ]
    for(let i=0; i<temp.length ;i++){
     models.push(temp[i]);
    }
@@ -88,7 +91,10 @@ Highcharts.charts.forEach((chart) => {
     if (chart.renderTo.id === 'carmod') {
     chart.update({
       series:models
-    }, true);    
+    }, true);  
+    chart.xAxis[0].update({
+      categories:cat
+    })     
     chart.redraw();
   }
   });
