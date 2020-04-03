@@ -4,7 +4,7 @@ import data from  '../Data/Carlist.json';
 
 
 
-class Car_listing extends React.Component {
+class CarListing extends React.Component {
   
     render() {
       const  newdata= data.map((data) =>{
@@ -54,4 +54,4 @@ class Car_listing extends React.Component {
      }
   }
  
- export default Car_listing;
+ export default CarListing;

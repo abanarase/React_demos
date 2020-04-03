@@ -4,7 +4,7 @@ import './Graph.css';
 
 
 
-class Graph_four extends React.Component {
+class GraphFour extends React.Component {
         
    options = {
      colors: ['#000', 'DarkBlue', 'tomato', 'Silver','Yellow'],
@@ -45,4 +45,4 @@ class Graph_four extends React.Component {
         );
       }
     }
-export default Graph_four;
+export default GraphFour;

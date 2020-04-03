@@ -2,7 +2,7 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import './Graph.css';
 
-class Graph_three extends React.Component {
+class GraphThree extends React.Component {
     options = {
         chart: {
           type: "column"
@@ -45,4 +45,4 @@ class Graph_three extends React.Component {
       }
     }
 
-export default Graph_three;
+export default GraphThree;

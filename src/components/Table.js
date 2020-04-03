@@ -1,6 +1,6 @@
 import React from 'react';
 import './Car_listing.css'; 
-import './Car_listing.js';
+import './CarListing.js';
 
 class Table extends React.Component {
 	 

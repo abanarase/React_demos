@@ -53,4 +53,4 @@ class GraphTwo extends React.Component {
   }
 }
 
-export default Graph_two;
+export default GraphTwo;

@@ -1,16 +1,7 @@
 .App {
   text-align: center;
 }
-.firstdiv {
-  text-align: center; 
-  display: inline;
 
-}
-.btn-ride{
-  width:100%;
-  height: 50px;
-  display: inline-block;
-}
 
 .flex-container {
     display: flex;
@@ -19,15 +10,14 @@
 }
 .flex-container_one{
     display: flex;
-  justify-content: space-between;
+  justify-content:flex-end;
 background-color: #f1f1f1;
 }
 .flex-container_one > div {
   margin: 10px;
   padding: 10px;
   width: 100%;
-  text-align: center;
-  
+    
   }
 
 .flex-container > div {

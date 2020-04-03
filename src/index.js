@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Filter from './components/FilterComponent'
 import * as serviceWorker from './serviceWorker';
 import Rides from './components/Riding';
-import Cars from './components/Car_listing';
-import Booking_form from './components/Booking_form';
+import Cars from './components/CarListing';
+import BookingForm from './components/BookingForm';
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -20,7 +19,7 @@ const routing = (
         <Route exact path="/" component={App} />
         <Route path="/Rides" component={Rides} />
         <Route path="/Cars" component={Cars} />
-        <Route path="/Booking_form" component={Booking_form} />
+        <Route path="/Booking_form" component={BookingForm} />
       </Switch>
     </div>
     </Router>
