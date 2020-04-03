@@ -11,6 +11,12 @@ const Yearly= [
   { value: '2020', label: '2020' }
 
 ]
+const Quartely = [
+  { value: 'q1', label: 'Quarter1' },
+  { value: 'q2', label: 'Quarter2' },
+  { value: 'q3', label: 'Quarter3' },
+  { value: 'q4', label: 'Quarter4' }
+]
 
 class Graph extends PureComponent {
 instance;
@@ -18,11 +24,52 @@ constructor(props) {
     super(props);
       this.state = {
          selectedOption:null,
+         filterOption: null
          
   }
   this.handleChange=this.handleChange.bind();
+  this.optionSelected=this.optionSelected.bind();
   
   } 
+
+  optionSelected = filterOption => {    
+    this.setState({
+      filterOption
+    })
+    let year = this.state.selectedOption.value;
+    let result = cardata.filter((item) => {
+  return item.Year === parseInt(year)  ;
+  });
+    let res;
+    let cat=[];
+   if(filterOption.value == "q1"){
+    res = result[0].q1;
+    cat=["Jan","feb","march"];
+   }
+   else if(filterOption.value == "q2"){
+    res = result[0].q2;
+   cat=["April","May","June"];  
+   }
+   else if(filterOption.value == "q3"){
+    res = result[0].q3;
+    cat=["Jully","Aug","Sep"];  
+   }
+   else if(filterOption.value == "q4"){
+    res = result[0].q4;
+   cat=["Oct","Nov","Dec"];  
+   }
+   Highcharts.charts.forEach((chart) => {
+    if (chart.renderTo.id === 'carmod') {
+    chart.update({
+      series:res
+    }, true);
+    chart.xAxis[0].update({
+      categories:cat
+    })    
+    chart.redraw();
+  }
+  });
+  }
 
  handleChange = selectedOption => {
     this.setState({ selectedOption });    
@@ -60,8 +107,7 @@ Highcharts.charts.forEach((chart) => {
     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ],
-    min: 0,
-    max: 11
+    
   },
   title: {
       text: "Car model VS Demand"
@@ -92,18 +138,21 @@ Highcharts.charts.forEach((chart) => {
   }
 
   render() {
-
  const { selectedOption } = this.state;
+ const {filterOption} =this.state;
     return (
+      <>
       <div style={{backgroundColor:"#fffcfc"}}>
         <div className="flex-container_graph">
     
-      <div><Select placeholder="select year" options={Yearly} value={selectedOption}  defaultValue={{value: '2020', label: '2020'}} onChange={this.handleChange}/></div>
-    <div style={{flexGrow:'1'}}><div id="carmod"  className="barchart"/></div>
+      <div style={{flexGrow:'1'}} ><Select placeholder="select year" options={Yearly} value={selectedOption}  defaultValue={{value: '2020', label: '2020'}} onChange={this.handleChange}/></div>
+     <div style={{flexGrow:'1'}}><Select  options={Quartely} value={filterOption} onChange={this.optionSelected}/></div>     
+     
       </div> 
         
+      <div id="carmod"  className="barchart"/></div>
       
-      </div>
+      </>
     );
   }
 }

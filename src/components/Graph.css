@@ -1,6 +1,5 @@
 .flex-container_graph{
     display: flex;
-    flex-direction: column;
   justify-content: space-between;
 }
 .flex-container_graph > div {
