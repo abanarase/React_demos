@@ -29,6 +29,7 @@ constructor(props) {
   }
   this.handleChange=this.handleChange.bind();
   this.optionSelected=this.optionSelected.bind();
+  this.chartUpdate=this.chartUpdate.bind();
   
   } 
 
@@ -58,7 +59,11 @@ constructor(props) {
     res = result[0].q4;
    cat=["Oct","Nov","Dec"];  
    }
-   Highcharts.charts.forEach((chart) => {
+   this.chartUpdate(res,cat);
+  }
+
+chartUpdate(res,cat) {
+  Highcharts.charts.forEach((chart) => {
     if (chart.renderTo.id === 'carmod') {
     chart.update({
       series:res
@@ -69,8 +74,7 @@ constructor(props) {
     chart.redraw();
   }
   });
-  }
-
+}
  handleChange = selectedOption => {
   this.setState({filterOption:''});
     this.setState({ selectedOption });    
@@ -86,18 +90,7 @@ constructor(props) {
    for(let i=0; i<temp.length ;i++){
     models.push(temp[i]);
    }
-
-Highcharts.charts.forEach((chart) => {
-    if (chart.renderTo.id === 'carmod') {
-    chart.update({
-      series:models
-    }, true);  
-    chart.xAxis[0].update({
-      categories:cat
-    })     
-    chart.redraw();
-  }
-  });
+this.chartUpdate(models,cat);
   };
  
  options = {
