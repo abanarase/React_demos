@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Table from "./Table";
 const headers = ["Name","Car model","Total Amount","Days"];
 
-class Booking_form extends React.Component {
+class BookingForm extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
@@ -254,4 +254,4 @@ return(
  }
 }
 }
-export default Booking_form;
+export default BookingForm;
