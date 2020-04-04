@@ -77,13 +77,13 @@ chartUpdate(res,cat) {
 }
  handleChange = selectedOption => {
   this.setState({filterOption:''});
-    this.setState({ selectedOption });    
+  this.setState({ selectedOption });    
    let year = selectedOption.value;
    let Dataitem = cardata.filter((item) => {
   return item.Year === parseInt(year);
   });
     let temp = Dataitem[0].item;
-    let models =[]
+    let models =[];
     let cat = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ]

@@ -4,6 +4,8 @@ import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import data from  '../Data/Carlist.json';
 import DatePicker from "react-datepicker";
+import moment from "moment";
+import { addDays } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import Table from "./Table";
 const headers = ["Name","Car model","Total Amount","Days"];
@@ -72,11 +74,19 @@ this.setState({endDate});
 console.log("end",endDate);
 };
 
-date_diff_indays(date1, date2) {
-let dt1 = new Date(date1);
-let dt2 = new Date(date2);
-return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
-}
+date_diff_indays(startDate, endDate) {
+    if (!moment.isMoment(startDate)) startDate = moment(startDate);
+    if (!moment.isMoment(endDate)) endDate = moment(endDate);
+
+    return endDate.diff(startDate, "days");
+  }
+
+
+// date_diff_indays(date1, date2) {
+// let dt1 = new Date(date1);
+// let dt2 = new Date(date2);
+// return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+// }
 
 handleChange(key) {
 return function (e) {
@@ -96,7 +106,8 @@ let dates2=this.state.endDate;
 let finalval;
 let dipo_amt;
 const defcars = this.state.cars ;
-var days_diff = this.date_diff_indays(dates1,dates2)+ 1;
+var days_diff = this.date_diff_indays(dates1,dates2) + 1 ;
+console.log("days_diff",days_diff);
 if(days_diff > 30){
    alert("Booking is not accepted after 30days");
 }
@@ -113,16 +124,21 @@ else{
     let carmod = sel_car.car_model;  
     let amtpaid = rentprkm * (100 * days_diff);
     this.setState({amt:amtpaid, carmodel:carmod, days:days_diff});
-    if(days_diff <= 5){
-      dipo_amt = 5000;
-    }
-    else if(days_diff > 5 && days_diff <= 14){
-      dipo_amt = 10000;
-    } 
-    else if (days_diff > 14 && days_diff <= 30){
-      dipo_amt = 15000;
-    }
-     this.setState({dep_amt:dipo_amt});
+
+    
+    switch (true)
+{
+    case (days_diff <= 5):
+    dipo_amt = 5000;
+    break;
+    case (days_diff <= 14):
+    dipo_amt = 10000;
+    break;
+    case (days_diff <= 30):
+    dipo_amt = 15000;
+    break; 
+}
+ this.setState({dep_amt:dipo_amt});
     }
 }
 
@@ -203,11 +219,14 @@ return(
             <div className="row">
                <div className="offset-md-4 col-md-2">
                   <label htmlFor="fromdate">From Date</label>
-                  <DatePicker  selected={this.state.startDate} onChange={this.handleChangeSDate.bind()}/>
+                  <DatePicker minDate={new Date()} selectsStart startDate={this.state.startDate} endDate={this.state.endDate}
+                  selected={this.state.startDate} onChange={this.handleChangeSDate.bind()}/>
                </div>
                <div className="offset-md-1 col-md-2">
                   <label htmlFor="todate">To Date</label>
-                  <DatePicker selected={this.state.endDate} onChange={this.handleChangeEDate.bind()}/>
+                  <DatePicker maxDate={addDays(new Date(), 30)} selectsEnd startDate={this.state.startDate}
+        endDate={this.state.endDate} minDate={this.state.startDate} selected={this.state.endDate} placeholderText="Select a date between today and 5 days in the future"
+ onChange={this.handleChangeEDate.bind()}/>
                </div>
             </div>
             <div className="row">
