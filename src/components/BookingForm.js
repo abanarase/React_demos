@@ -119,7 +119,7 @@ else{
       let selcar =this.state.selectedOption;
       finalval= selcar.value;      
     }
-    const sel_car = defcars.find(defcars => defcars.id == finalval);
+    const sel_car = defcars.find(defcars => defcars.id === parseInt(finalval));
     const rentprkm = sel_car.Rent_per_km;
     let carmod = sel_car.car_model;  
     let amtpaid = rentprkm * (100 * days_diff);
@@ -127,7 +127,7 @@ else{
 
     
     switch (true)
-{
+  {
     case (days_diff <= 5):
     dipo_amt = 5000;
     break;
@@ -137,16 +137,16 @@ else{
     case (days_diff <= 30):
     dipo_amt = 15000;
     break; 
-}
+ }
  this.setState({dep_amt:dipo_amt});
-    }
+  }
 }
 
 handleSubmit(event) {
-   event.preventDefault();
-        if(this.handleValidation()){
-           alert("Form submitted");
-           var data = [
+  event.preventDefault();
+   if(this.handleValidation()){
+   alert("Form submitted");
+   var data = [
   this.state.name,
   this.state.carmodel,         
   this.state.amt,
@@ -167,7 +167,7 @@ const carmodels = this.state.cars.map((item) => {
   return { value: item.id , label: item.car_model }
 });
 const { selectedOption } = carmodels;
-const resultObject = carmodels.find(carmodels => carmodels.value == selectedValue);
+const resultObject = carmodels.find(carmodels => carmodels.value === parseInt(selectedValue));
 console.log("resultObject",JSON.stringify(resultObject));
 if(this.state.showtab === 'hide') {
 return(

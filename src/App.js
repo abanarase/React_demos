@@ -1,19 +1,17 @@
-import React,{PureComponent}from 'react';
+import React from 'react';
 import './App.css';
 import GraphTwo from './components/GraphTwo';
 import GraphThree from './components/GraphThree';
 import GraphFour from './components/GraphFour';
 import Graph from './components/Graph';
-import Select from 'react-select';
-import {Link } from 'react-router-dom'
+import {Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
  class App extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
-        selectedOption:null,
-      
+        selectedOption:null      
   };
   
 }
