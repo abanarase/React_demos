@@ -1,6 +1,6 @@
 import React , { PureComponent } from 'react';
 import Highcharts from 'highcharts';
-import './Graph.css';
+import './css/Graph.css';
 import cardata from  '../Data/Cartype.json';
 import Select from 'react-select';
 

@@ -1,0 +1,12 @@
+.app-button  {
+    padding: 5px 10px;
+    background-color: tomato;
+    color: white;
+    margin:10px;
+    font-weight: bold;
+    transition: all 0.4s;
+}
+
+.app-button:hover {
+    background: brown;
+}

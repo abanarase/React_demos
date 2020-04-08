@@ -1,276 +1,254 @@
-import React from 'react';
-import './Booking_form.css';
-import Select from 'react-select';
+import React, {Component} from 'react';
+import Button from './library/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import data from  '../Data/Carlist.json';
+
+import InputField from "./library/InputField";
+import Dropdown from "./library/Dropdown";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import { addDays } from 'date-fns';
-import "react-datepicker/dist/react-datepicker.css";
+import data from  '../Data/Carlist.json';
 import Table from "./Table";
+
 const headers = ["Name","Car model","Total Amount","Days"];
 
-class BookingForm extends React.Component {
-  constructor(props) {
-    super(props);
-      this.state = {
-      cars:data ,
-      selectedOption: null,
-      name: "",
-      email:"",
-      address:"",
-      Mobile:"",
-      license:"",
-      ccno:"",
-      amt:"",
-      dep_amt:"",
-      showtab:"hide",
-      newdata: "",
-      trent:"",
-      carmodel:"",
-      startDate: new Date(),
+const regex = {
+  text:new RegExp(/^[a-zA-Z]+$/),
+  email: new RegExp(
+      '^(([^<>()\\[\\]\\\\.,;:\\s@]+(\\.[^<>()\\[\\]\\\\.,;:\\s@]+)*)|(.+))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
+  ),        
+  number: new RegExp('^[0-9]+$'),
+};
+export default class BookingForm extends Component {
+
+    state = {
+        text: '',
+        name:'',
+        mobile: '',
+        cars:data ,
+        email: '',
+        car: '',
+        message: '',
+        address:'',
+        ccno:'',
+        deptAmt:'',
+        amt:'',
+        days:'',
+        newdata: '',
+        carmodel:'',
+        showtab:"hide",
+        read:true,
+        startDate: new Date(),
       endDate : new Date(),
-      fields: {},
-      errors: {}        
-      };
-this.handleChange = this.handleChange.bind(this);
-this.cal_fare = this.cal_fare.bind(this);
-this.handleSubmit = this.handleSubmit.bind(this);  
-}
-handleValidation(){
-        let fields = this.state.fields;
+      errors: {}
+    };
+    handleValidation(){
+        let {name,email,mobile,address,ccno,car} = this.state;
         let errors = {};
-        let formIsValid = true;
-       console.log("fiels",fields);
+        let formIsValid = true;        
         //Name
-        if(!fields["name"]){
-           formIsValid = false;
-           errors["name"] = "Cannot be empty";
+        if(name.length > 0){
+            const result = regex.text.test(name);
+              if(!result){
+            formIsValid = false;
+            errors["name"] = "Only letters";
+            }             
+        }else{
+          formIsValid = false;
+          errors["name"] = "Required";
         }
 
-        if(typeof fields["name"] !== "undefined"){
-           if(!fields["name"].match(/^[a-zA-Z]+$/)){
-              formIsValid = false;
-              errors["name"] = "Only letters";
-           }        
-        }  
+        if(email.length > 0){
+            const result = regex.email.test(email);
+              if(!result){
+            formIsValid = false;
+            errors["email"] = "Enter email in valid format";
+            }             
+        }else{
+          formIsValid = false;
+          errors["email"] = "Required";
+        }
 
+        if(mobile.length>0){
+          const mobresult = regex.number.test(mobile);
+          if(!mobresult){
+          formIsValid = false;
+          errors["mobile"] = "Enter Digit only";
+            }
+      }else{
+        formIsValid = false;
+        errors["mobile"] = "Required";
+      }
+
+      if(address.length==0){            
+        formIsValid = false;
+        errors["address"] = "Required";
+      }
+      if(car.length==0){            
+          formIsValid = false;
+          errors["car"] = "Required";
+      }
+      if(ccno.length > 0){
+        const result = regex.number.test(ccno);
+        if(!result){
+        formIsValid = false;
+        errors["ccno"] = "Enter Digit only";
+      }             
+    }else{
+          formIsValid = false;
+          errors["ccno"] = "Required";
+        }
        this.setState({errors: errors});
        return formIsValid;
    }
 
-handleselChange = selectedOption => {
-this.setState({ selectedOption });
-console.log(`Option selected:`, selectedOption);
-}; 
+    handleChange = (key) => (value) => {
+        this.setState({[key]: value});
+    };
 
-handleChangeSDate = startDate => {
-this.setState({startDate });
-console.log("start",startDate);
-};
+    handleClick = (event) => {
+        event.preventDefault();
+        if(!this.handleValidation()){
+         alert("Please check errors");          
+        }else{
+        console.log(this.state);
+        const{name,carmodel,amt,days}=this.state;
+        var data = [name,carmodel,amt,days];
+        this.setState({showtab:"view"});
+        this.setState({newdata:data});
+        console.log("data is",JSON.stringify(data));
+        alert('Form submited');
+        }
+    };
 
-handleChangeEDate = endDate => {
-this.setState({endDate});
-console.log("end",endDate);
-};
+    handleDropdown = (car) => {
+          this.setState({car});
+    };
 
-date_diff_indays(startDate, endDate) {
-    if (!moment.isMoment(startDate)) startDate = moment(startDate);
-    if (!moment.isMoment(endDate)) endDate = moment(endDate);
-
-    return endDate.diff(startDate, "days");
-  }
-
-
-// date_diff_indays(date1, date2) {
-// let dt1 = new Date(date1);
-// let dt2 = new Date(date2);
-// return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
-// }
-
-handleChange(key) {
-return function (e) {
-var state = {};
-state[key] = e.target.value;
-this.setState(state);
-let fields = this.state.fields;
- fields[key] = e.target.value;  
-this.setState({fields});        
-}.bind(this);
-}
-
-
-cal_fare() {
-let dates1=this.state.startDate;
-let dates2=this.state.endDate;
-let finalval;
-let dipo_amt;
-const defcars = this.state.cars ;
-var days_diff = this.date_diff_indays(dates1,dates2) + 1 ;
-console.log("days_diff",days_diff);
-if(days_diff > 30){
-   alert("Booking is not accepted after 30days");
-}
-else{
-    if(this.state.selectedOption == null){
-      finalval = this.props.defval;
-    }
-    else{
-      let selcar =this.state.selectedOption;
-      finalval= selcar.value;      
-    }
-    const sel_car = defcars.find(defcars => defcars.id === parseInt(finalval));
-    const rentprkm = sel_car.Rent_per_km;
-    let carmod = sel_car.car_model;  
-    let amtpaid = rentprkm * (100 * days_diff);
-    this.setState({amt:amtpaid, carmodel:carmod, days:days_diff});
-
-    
-    switch (true)
-  {
-    case (days_diff <= 5):
-    dipo_amt = 5000;
-    break;
-    case (days_diff <= 14):
-    dipo_amt = 10000;
-    break;
-    case (days_diff <= 30):
-    dipo_amt = 15000;
-    break; 
- }
- this.setState({dep_amt:dipo_amt});
-  }
-}
-
-handleSubmit(event) {
-  event.preventDefault();
-   if(this.handleValidation()){
-   alert("Form submitted");
-   var data = [
-  this.state.name,
-  this.state.carmodel,         
-  this.state.amt,
-  this.state.days        
-  ]
-this.setState({showtab:"view"});
-this.setState({newdata:data});
-console.log("data is",JSON.stringify(data));
-}else{
-   alert("Form has errors.")
-  }
+    date_diff_indays=(startDate, endDate)=> {
+      if (!moment.isMoment(startDate)) startDate = moment(startDate);
+      if (!moment.isMoment(endDate)) endDate = moment(endDate);
   
-}
+      return endDate.diff(startDate, "days");
+    }
+  
+      calFare = (event) => {
+      event.preventDefault();
+      const{startDate,endDate,car,cars}=this.state;
+      let dates1=startDate;
+      let dates2=endDate;
+      let dipo_amt;
+      const defcars = cars ;
+      var days_diff = this.date_diff_indays(dates1,dates2) + 1 ;
+      console.log("days_diff",days_diff);
+        const selCar = defcars.find(defcars => defcars.id === parseInt(car));
+          const rentprkm = selCar.Rent_per_km;
+          let model = selCar.car_model;
+          let amtpaid = rentprkm * (100 * days_diff);
+          this.setState({amt:amtpaid, days:days_diff,carmodel:model});      
+          
+          switch (true)
+        {
+          case (days_diff <= 5):
+          dipo_amt = 5000;
+          break;
+          case (days_diff <= 14):
+          dipo_amt = 10000;
+          break;
+          case (days_diff <= 30):
+          dipo_amt = 15000;
+          break; 
+       }
+       this.setState({deptAmt:dipo_amt});
+        
+      }
+      
+    render() {
+        const carmodels = this.state.cars.map((item) => {            
+            return { value: item.id , label: item.car_model }
+          });
+        const {name,email,mobile,address,ccno,amt,deptAmt, car,startDate,endDate,showtab,read} = this.state;
+        if(showtab == "hide"){
+        return (
+          <div className="container">
+          <h2>
+             <center>Car Booking Form</center>
+          </h2>
+          <hr/>
+          <InputField 
+             value={name} 
+             type='text' placeholder='Full Name'                    
+             onChange={this.handleChange('name')}/>
+          <span style={{color: "red"}}>{this.state.errors["name"]}</span>
 
-render(){  
-let selectedValue=this.props.defval;    
-const carmodels = this.state.cars.map((item) => {            
-  return { value: item.id , label: item.car_model }
-});
-const { selectedOption } = carmodels;
-const resultObject = carmodels.find(carmodels => carmodels.value === parseInt(selectedValue));
-console.log("resultObject",JSON.stringify(resultObject));
-if(this.state.showtab === 'hide') {
-return(
-<div>
-   <center>
-      <h3>Car Rental booking form</h3>
-   </center>
-   <div className="Formfirst">
-      <form onSubmit={this.handleSubmit}>
-         <div className="container">
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="name">Name</label>
-                  <input ref="name" type="text" size="30" placeholder="Name" onChange={this.handleChange("name")} className="form-control" 
-                  value={this.state.fields["name"]}/>
-                           <span style={{color: "red"}}>{this.state.errors["name"]}</span>
-                   </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="name">Email</label>
-                  <input type="email" value={this.state.email} onChange={this.handleChange('email')} className="form-control"/>
-               </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="address">Address</label>
-                  <input type="text"  value={this.state.address} onChange={this.handleChange('address')} className="form-control"  id="address" />
-               </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="mob">Mobile no</label>
-                  <input type="tel"  value={this.state.Mobile} onChange={this.handleChange('Mobile')} className="form-control"  id="mob" />
-               </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="license">License no</label>
-                  <input type="number"  className="form-control" value={this.state.license} onChange={this.handleChange('license')} id="license" />
-               </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="name">Credit card no</label>
-                  <input type="text"  value={this.state.ccno} onChange={this.handleChange('ccno')} className="form-control"  id="ccn" />
-               </div>
-            </div>
-            <div className="row">
-               <div className="offset-md-4 col-md-2">
-                  <label htmlFor="fromdate">From Date</label>
-                  <DatePicker minDate={new Date()} selectsStart startDate={this.state.startDate} endDate={this.state.endDate}
-                  selected={this.state.startDate} onChange={this.handleChangeSDate.bind()}/>
-               </div>
-               <div className="offset-md-1 col-md-2">
-                  <label htmlFor="todate">To Date</label>
-                  <DatePicker maxDate={addDays(new Date(), 30)} selectsEnd startDate={this.state.startDate}
-        endDate={this.state.endDate} minDate={this.state.startDate} selected={this.state.endDate} placeholderText="Select a date between today and 5 days in the future"
- onChange={this.handleChangeEDate.bind()}/>
-               </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="name">Car model</label>
-                  <Select options={carmodels} value={selectedOption}
-                     onChange={this.handleselChange}
-                     defaultValue={resultObject} />
-               </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <input type="button" value="Calculate fare" className="default" onClick={this.cal_fare} id="name" />
-               </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="name">Amount to be paid</label>
-                  <input type="text"  value={this.state.amt} readOnly  onChange={this.handleChange('amt')}  className="form-control"  id="atbp" />
-               </div>
-            </div>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <label htmlFor="name">Deposit Amount</label>
-                  <input type="text"  readOnly  value={this.state.dep_amt} onChange={this.handleChange('dep_amt')} className="form-control"  id="DA" />
-               </div>
-            </div>
-            <br></br>
-            <div className="row">
-               <div className="col-md-5 offset-md-4">
-                  <input type="submit" value="Submit" className="default"  id="name" />
-               </div>
-            </div>
-         </div>
-      </form>
-   </div>
-</div>
-);
+          <InputField
+             value={email}
+             type='email'
+             placeholder='Email'                    
+             onChange={this.handleChange('email')}/>
+          <span style={{color: "red"}}>{this.state.errors["email"]}</span>
+
+          <InputField
+             value={mobile}
+             type='text'
+             placeholder='Mobile'                    
+             onChange={this.handleChange('mobile')}/>
+          <span style={{color: "red"}}>{this.state.errors["mobile"]}</span>
+
+          <InputField value={address}
+             type='text' placeholder=' Address'                    
+             onChange={this.handleChange('address')}/>
+          <span style={{color: "red"}}>{this.state.errors["address"]}</span>
+
+          <InputField value={ccno}
+             type='text' placeholder='Enter credit card no here...'
+             onChange={this.handleChange('ccno')}/>
+          <span style={{color: "red"}}>{this.state.errors["ccno"]}</span>
+
+          <Dropdown
+             data={carmodels}
+             styleClass='mt-3'
+             value={car}
+             placeholder='Select Car'
+             onChange={this.handleDropdown}
+             />
+          <span style={{color: "red"}}>{this.state.errors["car"]}</span>
+          
+          <div className="row">
+             <div className="col-md-2">
+                <label htmlFor="fromdate">From Date :</label>
+                <DatePicker minDate={new Date()} selectsStart startDate={startDate} endDate={endDate}
+                selected={startDate} onChange={this.handleChange('startDate')}/>
+             </div>
+             <div className="offset-md-2 col-md-2">
+                <label htmlFor="todate">To Date : </label>
+                <DatePicker maxDate={addDays(new Date(), 30)} selectsEnd startDate={startDate}
+                endDate={endDate} minDate={startDate} selected={endDate}
+                onChange={this.handleChange('endDate')}/>
+             </div>
+          </div>
+          <br></br>
+          <InputField value={amt}
+             type='text' placeholder='Amount to be pay'
+             readonly={read}                    
+             onChange={this.handleChange('amt')}/>
+          <InputField value={deptAmt}
+             type='text' placeholder='Amount to be Deposit'
+             readonly={read}                    
+             onChange={this.handleChange('deptAmt')}/>
+          <Button onClick={this.calFare}
+             value='Calculate fare'/>
+          <Button onClick={this.handleClick}
+             value='Submit'/>
+       </div>
+       
+        );
+        }
+        else if(this.state.showtab === 'view') {
+          return(
+            <Table thead={headers} tbody={this.state.newdata}/>
+           );
+           }
+    }
 }
-else if(this.state.showtab === 'view') {
-return(
-  <Table thead={headers} tbody={this.state.newdata}/>
- );
- }
-}
-}
-export default BookingForm;

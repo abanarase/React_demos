@@ -1,6 +1,6 @@
 import React from 'react';
 import Highcharts from 'highcharts';
-import './Graph.css';
+import './css/Graph.css';
 
 class GraphThree extends React.Component {
     options = {
