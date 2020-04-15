@@ -1,6 +1,7 @@
 import React from 'react';
 import CarListing from './CarListing';
 import BookingForm from './BookingForm';
+import UserList from './UserList';
 
 
 
@@ -23,7 +24,7 @@ class Riding extends React.Component {
       );
     } else {
        return (
-            <BookingForm defval={this.state.car}/>
+            <UserList></UserList>
         )
     }
     }

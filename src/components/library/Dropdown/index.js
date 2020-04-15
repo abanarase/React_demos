@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+
 const Dropdown = ({value, data, placeholder, styleClass, onChange}) => {
     const handleChange = (event) => {
         const {value} = event.target;

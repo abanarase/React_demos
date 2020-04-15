@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Button from './library/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import CarContext from '../Context/CarContext';
 import InputField from "./library/InputField";
 import Dropdown from "./library/Dropdown";
 import DatePicker from "react-datepicker";
@@ -10,6 +10,7 @@ import moment from "moment";
 import { addDays } from 'date-fns';
 import data from  '../Data/Carlist.json';
 import Table from "./Table";
+import UserList from "./UserList"
 
 const headers = ["Name","Car model","Total Amount","Days"];
 
@@ -21,6 +22,7 @@ const regex = {
   number: new RegExp('^[0-9]+$'),
 };
 export default class BookingForm extends Component {
+  static contextType = CarContext;
 
     state = {
         text: '',
@@ -39,10 +41,13 @@ export default class BookingForm extends Component {
         carmodel:'',
         showtab:"hide",
         read:true,
+        setLoading:'',
+        setError:'',
         startDate: new Date(),
       endDate : new Date(),
       errors: {}
     };
+     
     handleValidation(){
         let {name,email,mobile,address,ccno,car} = this.state;
         let errors = {};
@@ -107,7 +112,7 @@ export default class BookingForm extends Component {
         this.setState({[key]: value});
     };
 
-    handleClick = (event) => {
+    handleClick = (event ) => {
         event.preventDefault();
         if(!this.handleValidation()){
          alert("Please check errors");          
@@ -115,9 +120,11 @@ export default class BookingForm extends Component {
         console.log(this.state);
         const{name,carmodel,amt,days}=this.state;
         var data = [name,carmodel,amt,days];
+        let newData = {name,carmodel,amt,days}
         this.setState({showtab:"view"});
         this.setState({newdata:data});
         console.log("data is",JSON.stringify(data));
+      this.addTodo(newData);
         alert('Form submited');
         }
     };
@@ -163,9 +170,38 @@ export default class BookingForm extends Component {
        this.setState({deptAmt:dipo_amt});
         
       }
+      apiCall = (url, reqInit = {}) => {
+        this.setState({setLoading:true});
+        return new Promise((resolve, reject) => {
+          fetch(url, reqInit)
+            .then((res) => res.json())
+            .then((data) => {
+              resolve(data);
+            })
+            .catch((err) => {              
+              this.setState({setError:err});
+              reject(err);
+            })
+            .finally(() => {
+         this.setState({setLoading:false});
+            });
+        });
+      };
       
+      addTodo = async (data) => {
+        const newTodo = await this.apiCall('http://localhost:3001/Todos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            accept: 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        console.warn(newTodo);
+        //setTodoList([newTodo, ...todoList]);
+      };
     render() {
-        const carmodels = this.state.cars.map((item) => {            
+    const carmodels = this.state.cars.map((item) => {            
             return { value: item.id , label: item.car_model }
           });
         const {name,email,mobile,address,ccno,amt,deptAmt, car,startDate,endDate,showtab,read} = this.state;
@@ -233,10 +269,12 @@ export default class BookingForm extends Component {
              type='text' placeholder='Amount to be pay'
              readonly={read}                    
              onChange={this.handleChange('amt')}/>
+
           <InputField value={deptAmt}
              type='text' placeholder='Amount to be Deposit'
              readonly={read}                    
              onChange={this.handleChange('deptAmt')}/>
+
           <Button onClick={this.calFare}
              value='Calculate fare'/>
           <Button onClick={this.handleClick}
@@ -247,8 +285,10 @@ export default class BookingForm extends Component {
         }
         else if(this.state.showtab === 'view') {
           return(
-            <Table thead={headers} tbody={this.state.newdata}/>
+            <UserList></UserList>
            );
            }
     }
+    
+
 }

@@ -3,7 +3,12 @@ import './css/Car_listing.css';
 import './CarListing.js';
 
 class Table extends React.Component {
-	 
+	 constructor(props){
+         super(props)
+         this.state={
+             posts:[]
+         }
+     }
 
  generateHeader(){
  	let columnHeader = this.props.thead;  
@@ -14,27 +19,29 @@ class Table extends React.Component {
      return res;
    }
   generatebody(){  	
- 	let columnbody = this.props.tbody;  
- 	console.log("columnbody",columnbody);
- 	 let reo=[];
-     for(var i =0; i < columnbody.length; i++){
-         reo.push(<td key={columnbody[i]}>{columnbody[i]}</td>)
-     }
-     return reo;
+ 	let columnbody = this.props.tbody;   	
+      const  newdata= columnbody.map((data) =>{
+        return(<tr  key={data.id}>
+        <td>{data.name}</td> 
+        <td>{data.carmodel}</td> 
+        <td>{data.amt}</td>
+        <td>{data.days}</td>    
+        </tr>)
+      });      
+      return newdata;
    }
        render() {
+        
       	 return (
-      	 <div>
+      	 <div>             
         <table  id="Cars">
         <thead>
             <tr>
             {this.generateHeader()}
             </tr>
         </thead>
-        <tbody>
-        <tr>
-         {this.generatebody()}
-         </tr>
+        <tbody>        
+             {this.generatebody()}  
         </tbody>
         </table>
            </div>

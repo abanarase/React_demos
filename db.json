@@ -1,0 +1,53 @@
+{
+  "Todos": [
+    {
+      "name": "Amruta",
+      "carmodel": "Toyota Yaris",
+      "amt": 2000,
+      "days": 1,
+      "id": 4
+    },
+    {
+      "name": "ss",
+      "carmodel": "Kia selton",
+      "amt": 2000,
+      "days": 1,
+      "id": 5
+    },
+    {
+      "name": "qweeq",
+      "carmodel": "Kia selton",
+      "amt": 2000,
+      "days": 1,
+      "id": 6
+    },
+    {
+      "name": "riya",
+      "carmodel": "Maruti Suzuki Dzire",
+      "amt": 1000,
+      "days": 1,
+      "id": 7
+    },
+    {
+      "name": "uiuiu",
+      "carmodel": "Hyundai Elite i20.",
+      "amt": 1500,
+      "days": 1,
+      "id": 8
+    },
+    {
+      "name": "jjkl",
+      "carmodel": "Hyundai Elite i20.",
+      "amt": 1500,
+      "days": 1,
+      "id": 9
+    },
+    {
+      "name": "uii",
+      "carmodel": "Maruti Suzuki Vitara Brezza",
+      "amt": 20000,
+      "days": 10,
+      "id": 10
+    }
+  ]
+}
