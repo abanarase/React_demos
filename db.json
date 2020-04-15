@@ -62,6 +62,20 @@
       "amt": 3000,
       "days": 1,
       "id": 12
+    },
+    {
+      "name": "Yash",
+      "carmodel": "Renault Kiger HBC",
+      "amt": 24000,
+      "days": 8,
+      "id": 13
+    },
+    {
+      "name": "Kiara",
+      "carmodel": "Maruti Suzuki Dzire",
+      "amt": 1000,
+      "days": 1,
+      "id": 14
     }
   ]
 }
