@@ -24,7 +24,7 @@ class Riding extends React.Component {
       );
     } else {
        return (
-            <UserList></UserList>
+            <BookingForm defval={this.state.car}></BookingForm>
         )
     }
     }

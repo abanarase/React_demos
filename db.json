@@ -8,14 +8,14 @@
       "id": 4
     },
     {
-      "name": "ss",
+      "name": "Sai",
       "carmodel": "Kia selton",
       "amt": 2000,
       "days": 1,
       "id": 5
     },
     {
-      "name": "qweeq",
+      "name": "Rohan",
       "carmodel": "Kia selton",
       "amt": 2000,
       "days": 1,
@@ -29,25 +29,39 @@
       "id": 7
     },
     {
-      "name": "uiuiu",
+      "name": "Abha",
       "carmodel": "Hyundai Elite i20.",
       "amt": 1500,
       "days": 1,
       "id": 8
     },
     {
-      "name": "jjkl",
+      "name": "John",
       "carmodel": "Hyundai Elite i20.",
       "amt": 1500,
       "days": 1,
       "id": 9
     },
     {
-      "name": "uii",
+      "name": "Uday",
       "carmodel": "Maruti Suzuki Vitara Brezza",
       "amt": 20000,
       "days": 10,
       "id": 10
+    },
+    {
+      "name": "Vidya",
+      "carmodel": "Maruti Suzuki Vitara Brezza",
+      "amt": 2000,
+      "days": 1,
+      "id": 11
+    },
+    {
+      "name": "Aradhya",
+      "carmodel": "Renault Kiger HBC",
+      "amt": 3000,
+      "days": 1,
+      "id": 12
     }
   ]
 }

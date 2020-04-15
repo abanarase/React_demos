@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Rides from './components/Riding';
 import Cars from './components/CarListing';
+import Users from './components/UserList';
 import BookingForm from './components/BookingForm';
 import {CarProvider} from './Context/CarContext';
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom';
@@ -21,6 +22,7 @@ const routing = (
         <Route exact path="/" component={App} />
         <Route path="/Rides" component={Rides} />
         <Route path="/Cars" component={Cars} />
+        <Route path="/Users" component={Users}/>
         <Route path="/BookingForm" component={BookingForm} />
       </Switch>
     </div>

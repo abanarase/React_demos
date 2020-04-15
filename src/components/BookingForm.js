@@ -9,8 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import { addDays } from 'date-fns';
 import data from  '../Data/Carlist.json';
-import Table from "./Table";
-import UserList from "./UserList"
+import {withRouter} from 'react-router-dom'
 
 const headers = ["Name","Car model","Total Amount","Days"];
 
@@ -21,7 +20,7 @@ const regex = {
   ),        
   number: new RegExp('^[0-9]+$'),
 };
-export default class BookingForm extends Component {
+ class BookingForm extends Component {
   static contextType = CarContext;
 
     state = {
@@ -37,9 +36,7 @@ export default class BookingForm extends Component {
         deptAmt:'',
         amt:'',
         days:'',
-        newdata: '',
         carmodel:'',
-        showtab:"hide",
         read:true,
         setLoading:'',
         setError:'',
@@ -119,13 +116,10 @@ export default class BookingForm extends Component {
         }else{
         console.log(this.state);
         const{name,carmodel,amt,days}=this.state;
-        var data = [name,carmodel,amt,days];
         let newData = {name,carmodel,amt,days}
-        this.setState({showtab:"view"});
-        this.setState({newdata:data});
-        console.log("data is",JSON.stringify(data));
-      this.addTodo(newData);
+        this.addUser(newData);
         alert('Form submited');
+        this.props.history.push('./Users');
         }
     };
 
@@ -147,7 +141,7 @@ export default class BookingForm extends Component {
       let dates2=endDate;
       let dipo_amt;
       const defcars = cars ;
-      var days_diff = this.date_diff_indays(dates1,dates2) + 1 ;
+      let days_diff = this.date_diff_indays(dates1,dates2) + 1 ;
       console.log("days_diff",days_diff);
         const selCar = defcars.find(defcars => defcars.id === parseInt(car));
           const rentprkm = selCar.Rent_per_km;
@@ -188,8 +182,8 @@ export default class BookingForm extends Component {
         });
       };
       
-      addTodo = async (data) => {
-        const newTodo = await this.apiCall('http://localhost:3001/Todos', {
+      addUser = async (data) => {
+        const newUser= await this.apiCall('http://localhost:3001/Todos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -197,15 +191,15 @@ export default class BookingForm extends Component {
           },
           body: JSON.stringify(data),
         });
-        console.warn(newTodo);
-        //setTodoList([newTodo, ...todoList]);
+        console.warn(newUser);
+
       };
     render() {
     const carmodels = this.state.cars.map((item) => {            
             return { value: item.id , label: item.car_model }
           });
         const {name,email,mobile,address,ccno,amt,deptAmt, car,startDate,endDate,showtab,read} = this.state;
-        if(showtab == "hide"){
+  
         return (
           <div className="container">
           <h2>
@@ -282,13 +276,9 @@ export default class BookingForm extends Component {
        </div>
        
         );
-        }
-        else if(this.state.showtab === 'view') {
-          return(
-            <UserList></UserList>
-           );
-           }
+        
     }
     
 
 }
+export default withRouter(BookingForm);
