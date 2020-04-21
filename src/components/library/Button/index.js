@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import './buttonStyles.css';
 
-const Button = ({value, onClick}) => (
+const Button = ({value, onClick,className}) => (
     <button
-        className='app-button'
+        className={className}
         onClick={(event) => onClick(event)}>
         {value}
     </button>

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 
-const InputField = ({value, label, placeholder,readonly,type, onChange}) => {
+const TextArea = ({value, label, placeholder,readonly,type, onChange}) => {
     
     const handleChange = (event) => {
         const {value} = event.target;
@@ -10,9 +10,10 @@ const InputField = ({value, label, placeholder,readonly,type, onChange}) => {
     };
 
     return (
-        <div className="form-group col-6" style={{padding:"10px"}}>
+        <div className="form-group col-12" style={{padding:"10px"}}>
             {label && <label htmlFor="app-input-field">{label}</label>}
-            <input
+            <textarea
+                    rows="3"
                     type={type}
                     value={value}
                     readOnly={readonly}
@@ -25,7 +26,7 @@ const InputField = ({value, label, placeholder,readonly,type, onChange}) => {
     )
 };
 
-InputField.propTypes = {
+TextArea.propTypes = {
     value: PropTypes.string,
     label: PropTypes.string,
     placeholder: PropTypes.string,
@@ -33,11 +34,11 @@ InputField.propTypes = {
     onChange: PropTypes.func.isRequired
 };
 
-InputField.defaultProps = {
+TextArea.defaultProps = {
   value: '',
   label: '',
   placeholder: '',
   type: ''
 };
 
-export default InputField;
+export default TextArea;

@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CarContext from '../Context/CarContext';
 import InputField from "./library/InputField";
 import Dropdown from "./library/Dropdown";
+import Select from 'react-select';
+import TextArea from './library/TextArea';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -11,8 +13,19 @@ import { addDays } from 'date-fns';
 import data from  '../Data/Carlist.json';
 import {withRouter} from 'react-router-dom'
 
-const headers = ["Name","Car model","Total Amount","Days"];
 
+const divAlign={display: 'flex',flexDirection: 'row'}
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: '1px solid lightgray',
+    color: state.isSelected ? 'white' : 'black',
+    backgroundColor: state.isSelected ? '#8c0505' : 'white'
+  }),
+  control: (provided) => ({
+    ...provided
+  })
+}
 const regex = {
   text:new RegExp(/^[a-zA-Z]+$/),
   email: new RegExp(
@@ -29,7 +42,7 @@ const regex = {
         mobile: '',
         cars:data ,
         email: '',
-        car: '',
+        car: null,
         message: '',
         address:'',
         ccno:'',
@@ -124,6 +137,7 @@ const regex = {
     };
 
     handleDropdown = (car) => {
+
           this.setState({car});
     };
 
@@ -140,10 +154,17 @@ const regex = {
       let dates1=startDate;
       let dates2=endDate;
       let dipo_amt;
+      let finalcar;
       const defcars = cars ;
+      if(car === null){
+        finalcar = this.props.defval;        
+      }
+      else{        
+        finalcar= car.value; 
+      }
       let days_diff = this.date_diff_indays(dates1,dates2) + 1 ;
       console.log("days_diff",days_diff);
-        const selCar = defcars.find(defcars => defcars.id === parseInt(car));
+        const selCar = defcars.find(defcars => defcars.id === parseInt(finalcar));
           const rentprkm = selCar.Rent_per_km;
           let model = selCar.car_model;
           let amtpaid = rentprkm * (100 * days_diff);
@@ -195,23 +216,26 @@ const regex = {
 
       };
     render() {
-    const carmodels = this.state.cars.map((item) => {            
-            return { value: item.id , label: item.car_model }
-          });
-        const {name,email,mobile,address,ccno,amt,deptAmt, car,startDate,endDate,showtab,read} = this.state;
+      let selectedValue=this.props.defval;    
+      const carmodels = this.state.cars.map((item) => {            
+        return { value: item.id , label: item.car_model }
+      });
+      const { car } = carmodels;
+      const resultObject = carmodels.find(carmodels => carmodels.value === parseInt(selectedValue));
+      console.log("resultObject",JSON.stringify(resultObject));
+
+        const {name,email,mobile,address,ccno,amt,deptAmt,startDate,endDate,showtab,read} = this.state;
   
         return (
-          <div className="container">
-          <h2>
-             <center>Car Booking Form</center>
-          </h2>
-          <hr/>
+         <div className="offset-2 col-8">
+          <div style={{backgroundColor:"#8c0505",color:'white',textAlign:"center",padding:"5px"}} ><h4>Car Booking Form</h4>
+          </div>
+          <div style={divAlign}>
           <InputField 
-             value={name} 
+             value={name}              
              type='text' placeholder='Full Name'                    
              onChange={this.handleChange('name')}/>
           <span style={{color: "red"}}>{this.state.errors["name"]}</span>
-
           <InputField
              value={email}
              type='email'
@@ -219,62 +243,73 @@ const regex = {
              onChange={this.handleChange('email')}/>
           <span style={{color: "red"}}>{this.state.errors["email"]}</span>
 
+          </div>
+          <div style={divAlign}>
           <InputField
              value={mobile}
              type='text'
              placeholder='Mobile'                    
              onChange={this.handleChange('mobile')}/>
           <span style={{color: "red"}}>{this.state.errors["mobile"]}</span>
-
-          <InputField value={address}
-             type='text' placeholder=' Address'                    
-             onChange={this.handleChange('address')}/>
-          <span style={{color: "red"}}>{this.state.errors["address"]}</span>
-
+          
           <InputField value={ccno}
              type='text' placeholder='Enter credit card no here...'
              onChange={this.handleChange('ccno')}/>
           <span style={{color: "red"}}>{this.state.errors["ccno"]}</span>
+          </div>
+          <div style={divAlign}>
+          <TextArea value={address}
+             label='Permanant Address'
+             type='text' placeholder=' Address'                    
+             onChange={this.handleChange('address')}/>
+          <span style={{color: "red"}}>{this.state.errors["address"]}</span>
 
-          <Dropdown
-             data={carmodels}
-             styleClass='mt-3'
-             value={car}
-             placeholder='Select Car'
-             onChange={this.handleDropdown}
-             />
-          <span style={{color: "red"}}>{this.state.errors["car"]}</span>
-          
-          <div className="row">
-             <div className="col-md-2">
-                <label htmlFor="fromdate">From Date :</label>
-                <DatePicker minDate={new Date()} selectsStart startDate={startDate} endDate={endDate}
+          </div>
+          <div style={divAlign}>
+             <div className="form-group col-6" style={{display: 'flex',flexDirection: 'column'}}>
+
+                <label htmlFor="fromdate">From :</label>
+                <DatePicker className="form-control" minDate={new Date()} selectsStart startDate={startDate} endDate={endDate}
                 selected={startDate} onChange={this.handleChange('startDate')}/>
              </div>
-             <div className="offset-md-2 col-md-2">
-                <label htmlFor="todate">To Date : </label>
-                <DatePicker maxDate={addDays(new Date(), 30)} selectsEnd startDate={startDate}
+             <div className="form-group col-6" style={{display: 'flex',flexDirection: 'column'}}>
+                <label htmlFor="todate">To : </label>
+                <DatePicker className="form-control" maxDate={addDays(new Date(), 30)} selectsEnd startDate={startDate}
                 endDate={endDate} minDate={startDate} selected={endDate}
                 onChange={this.handleChange('endDate')}/>
              </div>
           </div>
-          <br></br>
-          <InputField value={amt}
+          <div style={divAlign}>
+               <div className="col"  style={{display: 'flex',flexDirection: 'column'}}>
+                  <label htmlFor="name">Car model :</label>
+                  <Select options={carmodels} styles = { customStyles } value={car}
+                     placeholder='Select Car'
+                     onChange={this.handleDropdown} defaultValue={resultObject} />
+               </div>
+          </div>
+          <div style={divAlign}>
+          <InputField value={amt} label="Paid Amount :"
              type='text' placeholder='Amount to be pay'
              readonly={read}                    
              onChange={this.handleChange('amt')}/>
 
-          <InputField value={deptAmt}
+          <InputField value={deptAmt} label="Deposit Amount :"
              type='text' placeholder='Amount to be Deposit'
              readonly={read}                    
              onChange={this.handleChange('deptAmt')}/>
 
-          <Button onClick={this.calFare}
+          </div>
+          <div style={divAlign}>
+            
+            <Button onClick={this.calFare} className="app-button col-6"
              value='Calculate fare'/>
-          <Button onClick={this.handleClick}
+         
+            
+          <Button onClick={this.handleClick} className="app-button col-6"
              value='Submit'/>
-       </div>
-       
+
+          </div>
+          </div>
         );
         
     }
