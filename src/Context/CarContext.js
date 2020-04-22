@@ -1,38 +1,24 @@
-import React, { Component } from 'react'
+import React, { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const CarContext = React.createContext();
+export const { Provider: CarProvider, Consumer: CarConsumer } = createContext();
 
-class CarProvider extends Component {
-  // Context state
-  state = {
-    Car: {},
-  }
+const CarContext = ({ children }) => {
+  const [Car, setCar] = useState('light');
+  return (
+    <CarProvider
+      value={{
+        Car,
+        changeCar: (newCar) => setCar(newCar),
+      }}
+    >
+      {children}
+    </CarProvider>
+  );
+};
 
-  // Method to update state 
-  setCar = Car => {
-      console.log("Car is updated",Car);
-    this.setState(prevState => ({ Car }))
-  }
-
-  render() {
-    const { children } = this.props
-    const { Car } = this.state
-    const { setCar } = this
-
-    return (
-      <CarContext.Provider
-        value={{
-          Car,
-          setCar,
-        }}
-      >
-        {children}
-      </CarContext.Provider>
-    )
-  }
-}
+CarContext.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default CarContext;
-export const CarConsumer = CarContext.Consumer;
-export { CarProvider }
-

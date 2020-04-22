@@ -76,6 +76,20 @@
       "amt": 1000,
       "days": 1,
       "id": 14
+    },
+    {
+      "name": "amyu",
+      "carmodel": "Toyota Yaris",
+      "amt": 2000,
+      "days": 1,
+      "id": 15
+    },
+    {
+      "name": "Sandhya",
+      "carmodel": "Toyota Yaris",
+      "amt": 6000,
+      "days": 3,
+      "id": 16
     }
   ]
 }

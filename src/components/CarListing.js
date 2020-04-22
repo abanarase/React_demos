@@ -1,13 +1,23 @@
 import React from 'react';
-import './css/Car_listing.css';
+import Table from "./Table";
 import data from  '../Data/Carlist.json';
+const theader =[ "ID","Car model","Registration no","Transmission","Fuel","Displacement_CC","Mileage in km",
+"Color","Rent per km","Booking status","Action"];
 
 
+  const CarListing = (props) =>{
 
-class CarListing extends React.Component {
-  
-    render() {
-      const  newdata= data.map((data) =>{
+   const generateHeader= ()=>{
+      let columnHeader = theader;  
+       let res=[];
+       for(var i =0; i < columnHeader.length; i++){
+           res.push(<th key={columnHeader[i]}>{columnHeader[i]}</th>)
+       }
+       return res;
+     }
+     const generatebody= ()=> {  	
+      let columnbody = data ;   	
+        const  newdata= columnbody.map((data) =>{
          return (
              <tr key={data.id}>
                 <td>{data.id}</td>
@@ -20,38 +30,23 @@ class CarListing extends React.Component {
                 <td>{data.Color}</td>
                 <td>{data.Rent_per_km}</td>              
                 <td>{data.Booking_status}</td>          
-               <td><input className="Erra" type="button" value="Book" id={data.id}  onClick={e => this.props.action.childHandler(e, "id")}/></td>
+               <td><input className="Erra" type="button" value="Book" id={data.id}  onClick={e =>props.action.childHandler(e, "id")}/></td>
  
              </tr>
           )
-       })
+       });
+       return newdata;
+      }
       
         return (
         
-           <div>              
+           <div>        
+                    
               <h1 id='title'>Car List</h1>
-              <table id='Cars'>
-                 <tbody>
-                   <tr>                     
-                       <th>ID</th>
-                       <th>Car model</th>
-                       <th>Registration no</th>
-                       <th>transmission</th>
-                       <th>Fuel</th>
-                       <th>Displacement_CC</th>
-                       <th>Mileage in km</th>
-                       <th>Color</th>
-                       <th>Rent per km</th>
-                       <th>Booking status</th>
-                       <th>Action</th>
-                     </tr>
-                    {newdata}
-                 </tbody>
-              </table>
-            
+              <Table thead={generateHeader()} tbody={generatebody()}/>              
            </div>
         )
-     }
+     
   }
  
  export default CarListing;

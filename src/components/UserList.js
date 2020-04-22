@@ -35,6 +35,7 @@ const UserList = () => {
   //   setUserList(data);
     
   // };
+
   const loadData=()=>{
     setLoading(true);
   axios.get('http://localhost:3001/todos')
@@ -56,7 +57,28 @@ const UserList = () => {
     loadData();
   }, []);
 
-  
+  const generateHeader= ()=>{
+ 	let columnHeader = headers;  
+ 	 let res=[];
+     for(var i =0; i < columnHeader.length; i++){
+         res.push(<th key={columnHeader[i]}>{columnHeader[i]}</th>)
+     }
+     return res;
+   }
+
+  const generatebody= ()=> {  	
+ 	let columnbody = users ;   	
+      const  newdata= columnbody.map((data) =>{
+        return(<tr  key={data.id}>
+        <td>{data.name}</td> 
+        <td>{data.carmodel}</td> 
+        <td>{data.amt}</td>
+        <td>{data.days}</td>    
+        </tr>)
+      });      
+      return newdata;
+   }
+ 
   if (error) {
     return <h2 style={{ color: 'red' }}>{error.message}</h2>;
   }
@@ -66,7 +88,7 @@ const UserList = () => {
   }
 
   return(
-    <Table thead={headers} tbody={users}/>
+    <Table thead={generateHeader()} tbody={generatebody()}/>
    );
 };
 

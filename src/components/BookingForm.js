@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Button from './library/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CarContext from '../Context/CarContext';
+//import CarContext from '../Context/CarContext';
 import InputField from "./library/InputField";
 import Dropdown from "./library/Dropdown";
 import Select from 'react-select';
@@ -34,7 +34,7 @@ const regex = {
   number: new RegExp('^[0-9]+$'),
 };
  class BookingForm extends Component {
-  static contextType = CarContext;
+  //static contextType = CarContext;
 
     state = {
         text: '',
@@ -59,6 +59,7 @@ const regex = {
     };
      
     handleValidation(){
+      console.log("ssqwee////////////",JSON.stringify(this.state));
         let {name,email,mobile,address,ccno,car} = this.state;
         let errors = {};
         let formIsValid = true;        
@@ -157,10 +158,12 @@ const regex = {
       let finalcar;
       const defcars = cars ;
       if(car === null){
-        finalcar = this.props.defval;        
+        finalcar = this.props.defval;  
+        console.log("ss",finalcar);   
+        this.setState({car:finalcar});   
       }
       else{        
-        finalcar= car.value; 
+        finalcar= car; 
       }
       let days_diff = this.date_diff_indays(dates1,dates2) + 1 ;
       console.log("days_diff",days_diff);
@@ -220,6 +223,7 @@ const regex = {
       const carmodels = this.state.cars.map((item) => {            
         return { value: item.id , label: item.car_model }
       });
+      console.log("car us",JSON.stringify(carmodels));
       const { car } = carmodels;
       const resultObject = carmodels.find(carmodels => carmodels.value === parseInt(selectedValue));
       console.log("resultObject",JSON.stringify(resultObject));
