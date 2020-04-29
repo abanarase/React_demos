@@ -2,10 +2,10 @@
 import React, { useState, useEffect, memo } from 'react';
 import Table from "./Table";
 import axios from 'axios';
+import Button from './library/Button';
+const headers = ["Name","Car model","Total Amount","Days","Actions"];
 
-const headers = ["Name","Car model","Total Amount","Days"];
-
-const UserList = () => {
+const UserList = (props) => {
   const [users, setUserList] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ const UserList = () => {
     setLoading(true);
   axios.get('http://localhost:3001/todos')
   .then(res => {
-    if(res!=error){
+    if(res!==error){
       setLoading(false);
       const data = res.data;
       setUserList(data);
@@ -52,6 +52,7 @@ const UserList = () => {
     
   })
 }
+
   // componentDidMount
   useEffect(() => {
     loadData();
@@ -71,14 +72,16 @@ const UserList = () => {
       const  newdata= columnbody.map((data) =>{
         return(<tr  key={data.id}>
         <td>{data.name}</td> 
-        <td>{data.carmodel}</td> 
+        <td>{data.car.label}</td> 
         <td>{data.amt}</td>
-        <td>{data.days}</td>    
+        <td>{data.days}</td>   
+        <td> <Button value='Edit'  onClick={e =>props.action.editHandler(data.id)}/> <Button value='Delete' onClick={e =>props.action.deleteHandler(data.id)}/></td> 
         </tr>)
       });      
       return newdata;
    }
  
+    
   if (error) {
     return <h2 style={{ color: 'red' }}>{error.message}</h2>;
   }

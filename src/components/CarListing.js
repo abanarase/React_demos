@@ -38,10 +38,8 @@ const theader =[ "ID","Car model","Registration no","Transmission","Fuel","Displ
        return newdata;
       }
       
-        return (
-        
-           <div>        
-                    
+        return (        
+           <div>    
               <h1 id='title'>Car List</h1>
               <Table thead={generateHeader()} tbody={generatebody()}/>              
            </div>

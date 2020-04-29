@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './css/Car_listing.css';
 
@@ -22,7 +22,7 @@ const Table = ({tbody, thead}) => {
 };
 
 Table.propTypes = {
-    thead: PropTypes.string,
+    thead: PropTypes.array,
     };
 
 Table.defaultProps = {

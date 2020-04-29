@@ -1,0 +1,18 @@
+
+.blockElement{
+    display: flex;
+    flex-direction: row;
+}
+.spanElement{
+    color:red
+}
+.parentBlock{
+background-color:#8c0505;
+color:white;
+text-align: center;
+padding: 5px;
+}
+.colBlocks{
+    display: flex;
+    flex-direction:column;
+}

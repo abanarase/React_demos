@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -26,10 +26,9 @@ const InputField = ({value, label, placeholder,readonly,type, onChange}) => {
 };
 
 InputField.propTypes = {
-    value: PropTypes.string,
+    //value: PropTypes.string,
     label: PropTypes.string,
-    placeholder: PropTypes.string,
-    type: PropTypes.string,
+    placeholder: PropTypes.string,    
     onChange: PropTypes.func.isRequired
 };
 
