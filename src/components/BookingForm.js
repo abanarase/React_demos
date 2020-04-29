@@ -305,8 +305,8 @@ const regex = {
          
           </div>
           <div className='blockElement'>
-          <span className='spanElement'>{this.state.errors["name"]}</span>
-          <span className='spanElement'>{this.state.errors["email"]}</span>
+          <span className='spanElement col-6'>{this.state.errors["name"]}</span>
+          <span className='spanElement col-6'>{this.state.errors["email"]}</span>
           </div>
 
           <div className='blockElement'>
@@ -315,30 +315,29 @@ const regex = {
              type='text'
              placeholder='Mobile'                    
              onChange={this.handleChange('mobile')}/>
-          <span className='spanElement'>{this.state.errors["mobile"]}</span>
           
           <InputField value={ccno}
              type='text' placeholder='Enter credit card no here...'
              onChange={this.handleChange('ccno')}/>
-          <span className='spanElement'>{this.state.errors["ccno"]}</span>
+          
           </div>
           
           <div className='blockElement'>
-          <span className='spanElement'>{this.state.errors["mobile"]}</span>
-          <span className='spanElement'>{this.state.errors["ccno"]}</span>
+          <span className='spanElement col-6'>{this.state.errors["mobile"]}</span>
+          <span className='spanElement col-6'>{this.state.errors["ccno"]}</span>
           </div>
 
           <div className='blockElement'>
           <TextArea value={address}
              label='Permanant Address'
              type='text' placeholder=' Address'                    
-             onChange={this.handleChange('address')}/>
-          <span className='spanElement'>{this.state.errors["address"]}</span>
-
+             onChange={this.handleChange('address')}/>          
+          </div>
+          <div>
+          <span className='spanElement col-6'>{this.state.errors["address"]}</span>
           </div>
           <div className='blockElement'>
              <div className="form-group col-6 colBlocks">
-
                 <label htmlFor="fromdate">From :</label>
                 <DatePicker className="form-control" minDate={startDate} selectsStart startDate={startDate} endDate={endDate}
                 selected={startDate} onChange={this.handleChange('startDate')}/>
@@ -371,7 +370,7 @@ const regex = {
              onChange={this.handleChange('deptAmt')}/>
           </div>
           <div className='blockElement'>
-          <span className='spanElement'>{this.state.errors["amt"]}</span>
+          <span className='spanElement col-8'>{this.state.errors["amt"]}</span>
           </div>
           <div className='blockElement'>
             <Button onClick={this.calFare} className="app-button col-6"
