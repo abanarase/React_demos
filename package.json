@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "highcharts": "^8.0.0",
+    "highcharts": "^9.0.0",
     "immutable": "^4.0.0-rc.12",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
